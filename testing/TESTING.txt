@@ -27,5 +27,16 @@ Testing Each of the 7 Functions in DB.c
     -
 
 5. compressDB()
+    - Compresses the database to compressed_db.bin
+    - Checking the file's existence and comparing its size to the original CSV file
+    - Confirms the compressed file is created and smaller than the uncompressed version
+
 6. unCompressDB()
+    - Loads the database from the compressed binary file and reconstructs all data structures
+    - Uncompressed data is exported to CSV and compared to the original file
+    - Successful test shows matching data between original and uncompressed versions
+
 7. freeDB()
+    - Verify proper memory deallocation for both populated and empty databases
+    - The test includes edge cases like freeing an empty database structure
+    - Expected output shows successful freeing with no memory errors reported

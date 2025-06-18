@@ -47,10 +47,27 @@ int main(void){
     sortByMember("Ward");
 
     //5. compressDB()
+    printf("\nTesting compressDB()\n");
+    compressDB("compressed_db.bin");
+    printf("Database compressed to 'compressed_db.bin'\n");
 
     //6. uncompressDB()
+    printf("\nTesting unCompressDB()\n");
+    freeDB(); // Free existing database first
+    unCompressDB("compressed_db.bin");
+    printf("Database uncompressed from 'compressed_db.bin'\n");
 
     //7. freeDB()
+    printf("\nTesting freeDB()\n");
+    freeDB();
+    printf("Database memory successfully freed\n");
+
+    // Test with empty database
+    printf("\nTesting with empty database\n");
+    Db = malloc(sizeof(DataBase));
+    Db->picnicTableTable = NULL;
+    freeDB();
+    printf("Empty database freed successfully\n");
     
     //test on full csv file
 
