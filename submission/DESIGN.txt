@@ -30,4 +30,8 @@ Design of UnCompression:
         - Read the number of nodes (count)
         - Rebuild the linked lists by connecting nodes
     - Use malloc for memory allocation
+<<<<<<< HEAD
     - Linked lists reconnection by using the "prev" pointer
+=======
+    - Linked lists reconnection by using the "prev" pointer
+>>>>>>> a8a00c7f3a7ccda32f15f4d84384cd4efd4950f5

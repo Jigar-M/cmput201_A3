@@ -161,6 +161,10 @@ void importDB(char *fileName){
         //here is when a node is finished being made
         uID++;
         Db->linkedSize++;
+        //no resizing is necessary since its a linked list, just update capacity as you go
+        if (Db->linkedSize >= Db->currCapacity){
+            Db->currCapacity = Db->linkedSize;
+        }
         node->next = NULL;
 
         //insert node into linked list
@@ -451,7 +455,7 @@ int countEntries(char *memberName, char *value){
 }
 
 void sortByMember(char *memberName){
-    PicnicTable *p = Db->picnicTableTable;
+    //PicnicTable *p = Db->picnicTableTable;
     int linkedSize;
     
     //to use qsort, make linked list into an array (helper function?), sort it, then turn back into linked list
@@ -504,18 +508,23 @@ void sortByMember(char *memberName){
 
     //turn back into linked list
     PicnicTable *np;
+    PicnicTable* firstNode = arrayToLinked(newArray);
 
     //clear Db linked list
-    //freeDB();
-
+    
     //initialize Db linked list
     
-
-
     //write the database to a .csv named after sorting member 
     //export(memberName);
 }
+void compressDB(char *filename){
+    FILE *fp = fopen(filename, "wb");
+    if (fp == NULL) {
+        printf("Failed");
+        exit(EXIT_FAILURE);
+    }
 
+<<<<<<< HEAD
 void compressDB(char *filename){
     FILE *fp = fopen(filename, "wb");
     if (fp == NULL) {
@@ -532,6 +541,17 @@ void compressDB(char *filename){
         fwrite(Db->tableTypeTable->entries[i], sizeof(char), len, fp);
     }
 
+=======
+    // Table
+    fwrite(&Db->tableTypeTable->size, sizeof(int), 1, fp);
+    for (int i = 0; i < Db->tableTypeTable->size; i++) {
+        int len = strlen(Db->tableTypeTable->entries[i]) + 1;
+        fwrite(&Db->tableTypeTable->ids[i], sizeof(int), 1, fp);
+        fwrite(&len, sizeof(int), 1, fp);
+        fwrite(Db->tableTypeTable->entries[i], sizeof(char), len, fp);
+    }
+
+>>>>>>> a8a00c7f3a7ccda32f15f4d84384cd4efd4950f5
     // Surface Table
     fwrite(&Db->surfaceMaterialTable->size, sizeof(int), 1, fp);
     for (int i = 0; i < Db->surfaceMaterialTable->size; i++) {
@@ -612,6 +632,11 @@ void compressDB(char *filename){
 
     fclose(fp);
     printf("Database compressed to %s\n", filename);
+<<<<<<< HEAD
+=======
+
+    //freeDB()?
+>>>>>>> a8a00c7f3a7ccda32f15f4d84384cd4efd4950f5
 }
 
 void unCompressDB(char *filename){
@@ -634,7 +659,11 @@ void unCompressDB(char *filename){
     fread(&size, sizeof(int), 1, fp);
     Db->tableTypeTable->size = size;
     Db->tableTypeTable->capacity = size;
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> a8a00c7f3a7ccda32f15f4d84384cd4efd4950f5
     for (int i = 0; i < size; i++) {
         fread(&Db->tableTypeTable->ids[i], sizeof(int), 1, fp);
         int len;
@@ -647,7 +676,11 @@ void unCompressDB(char *filename){
     fread(&size, sizeof(int), 1, fp);
     Db->surfaceMaterialTable->size = size;
     Db->surfaceMaterialTable->capacity = size;
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> a8a00c7f3a7ccda32f15f4d84384cd4efd4950f5
     for (int i = 0; i < size; i++) {
         fread(&Db->surfaceMaterialTable->ids[i], sizeof(int), 1, fp);
         int len;
@@ -660,7 +693,11 @@ void unCompressDB(char *filename){
     fread(&size, sizeof(int), 1, fp);
     Db->structuralMaterialTable->size = size;
     Db->structuralMaterialTable->capacity = size;
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> a8a00c7f3a7ccda32f15f4d84384cd4efd4950f5
     for (int i = 0; i < size; i++) {
         fread(&Db->structuralMaterialTable->ids[i], sizeof(int), 1, fp);
         int len;
@@ -673,7 +710,11 @@ void unCompressDB(char *filename){
     fread(&size, sizeof(int), 1, fp);
     Db->neighbourhoodTable->size = size;
     Db->neighbourhoodTable->capacity = size;
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> a8a00c7f3a7ccda32f15f4d84384cd4efd4950f5
     for (int i = 0; i < size; i++) {
         fread(&Db->neighbourhoodTable->nID[i], sizeof(int), 1, fp);
         int len;
@@ -689,7 +730,11 @@ void unCompressDB(char *filename){
     PicnicTable *prev = NULL;
     for (int i = 0; i < count; i++) {
         PicnicTable *node = malloc(sizeof(PicnicTable));
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> a8a00c7f3a7ccda32f15f4d84384cd4efd4950f5
         // Read fixed members
         fread(&node->tableID, sizeof(int), 1, fp);
         fread(&node->siteID, sizeof(int), 1, fp);
@@ -700,6 +745,7 @@ void unCompressDB(char *filename){
 
         // Read strings with their lengths
         int len;
+<<<<<<< HEAD
         
         fread(&len, sizeof(int), 1, fp);
         fread(node->streetave, sizeof(char), len, fp);
@@ -719,12 +765,38 @@ void unCompressDB(char *filename){
         fread(&len, sizeof(int), 1, fp);
         fread(node->location, sizeof(char), len, fp);
         
+=======
+
+        fread(&len, sizeof(int), 1, fp);
+        fread(node->streetave, sizeof(char), len, fp);
+
+        fread(&len, sizeof(int), 1, fp);
+        fread(node->ward, sizeof(char), len, fp);
+
+        fread(&len, sizeof(int), 1, fp);
+        fread(node->latitude, sizeof(char), len, fp);
+
+        fread(&len, sizeof(int), 1, fp);
+        fread(node->longitude, sizeof(char), len, fp);
+
+        fread(&len, sizeof(int), 1, fp);
+        fread(node->neighName, sizeof(char), len, fp);
+
+        fread(&len, sizeof(int), 1, fp);
+        fread(node->location, sizeof(char), len, fp);
+
+>>>>>>> a8a00c7f3a7ccda32f15f4d84384cd4efd4950f5
         fread(&len, sizeof(int), 1, fp);
         fread(node->geoPoint, sizeof(char), len, fp);
 
         node->next = NULL;
+<<<<<<< HEAD
         node->capacity = 100;
         node->size = 1;
+=======
+        Db->linkedSize = 1;
+        Db->currCapacity = 100;
+>>>>>>> a8a00c7f3a7ccda32f15f4d84384cd4efd4950f5
 
         if (prev == NULL) {
             Db->picnicTableTable = node;
@@ -739,7 +811,8 @@ void unCompressDB(char *filename){
 }
 
 void freeDB(void){
-    int i,e;
+    int i;
+    //int e;
     PicnicTable *p = Db->picnicTableTable;
     for (i=0; i < 6; i++){
         free(Db->tableTypeTable->entries[i]);
@@ -778,6 +851,7 @@ int main (void){
     //importDB("PicnicTableSmall.csv");                                this doesn't work for some reason, the whole file path needs to be written in my case
     exportDB("test.csv");
 
+    //all testing here will be added to testing folder
     //testing countEntries()
     //int count = countEntries("Table Type","Square Picnic Table");
     //int count = countEntries("Surface Material","Composite");
