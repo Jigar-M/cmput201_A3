@@ -14,11 +14,9 @@
 int main(void){
     int count;
 
-    //test DB module functions on smaller csv file
-
     //1. importDB()
-    importDB("/Users/Joaquin/Downloads/cs/cmpt201/CMPT201/labs/cmput201_A3/skeleton files/PicnicTableSmall.csv");
-    //importDB("PicnicTableSmall.csv");
+    //importDB("/Users/Joaquin/Downloads/cs/cmpt201/CMPT201/labs/cmput201_A3/skeleton files/PicnicTableSmall.csv");
+    importDB("PicnicTableSmall.csv");
 
     //2. exportDB()
     exportDB("testexport.csv");
@@ -38,6 +36,7 @@ int main(void){
     count = countEntries("Ward", "Ward Karhiio");
     printf("count: %d\n",count);    //expects 1
 
+    
     //4. sortByMember() -> check the exported membername files
     sortByMember("Table Type"); 
     sortByMember("Surface Material"); 
@@ -45,6 +44,8 @@ int main(void){
     sortByMember("Neighbourhood Id");
     sortByMember("Neighbourhood Name");
     sortByMember("Ward");
+    //diff Table Type verifiedOutput\Table Type etc
+    
 
     //5. compressDB()
     printf("\nTesting compressDB()\n");
@@ -71,9 +72,19 @@ int main(void){
     
     //test on full csv file
 
+    // Test with empty database
+    printf("\nTesting with empty database\n");
+    Db = malloc(sizeof(DataBase));
+    Db->picnicTableTable = NULL;
+    freeDB();
+    printf("Empty database freed successfully\n");
 
 
     //test dashboard
+
+
+
+    freeDB();
 
     return 0;
 }
