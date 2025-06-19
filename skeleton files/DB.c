@@ -531,13 +531,11 @@ void sortByMember(char *memberName){
 }
 
 void compressDB(char *filename){
-    FILE *fp = fopen(filename, "wb");
-    if (fp == NULL) {
-        printf("Failed");
-        exit(EXIT_FAILURE);
+    if (Db == NULL) {
+        printf("Database not initialized\n");
+        return;
     }
 
-void compressDB(char *filename){
     FILE *fp = fopen(filename, "wb");
     if (fp == NULL) {
         printf("Failed");
@@ -643,7 +641,6 @@ void compressDB(char *filename){
     fclose(fp);
     printf("Database compressed to %s\n", filename);
 
-    //freeDB()?
 }
 
 void unCompressDB(char *filename){
