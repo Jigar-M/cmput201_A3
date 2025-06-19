@@ -1,6 +1,6 @@
 /* dbTest.c
  *
- * Description: Contains a variety of function calls to functions defined in the DB module
+ * Description: Contains a variety of function calls to functions defined in the DB mod
  *
  * Author: Joaquin Carbonell, Jigarjeet Mannan
  * Lab instructor: Dr. Philip Mees
